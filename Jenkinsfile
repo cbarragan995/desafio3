@@ -5,6 +5,7 @@ pipeline {
         BUCKETS3="bootcamp-lambda-csv-loader-bucket"
         ZIP="function.zip"
         CODE="lambda_function.py"
+        DATA="data.csv"
     }
 
     stages {
@@ -35,6 +36,11 @@ pipeline {
             steps {
                 sh 'aws lambda update-function-code --function-name $FUNCTION_NAME --s3-bucket ${BUCKETS3} --s3-key $ZIP --publish'
             }
-        }   
+        }
+        stage('Update csv') {
+            steps {
+                sh 'aws s3 cp $DATA s3://${BUCKETS3}'
+            }
+        }
     }
 }
