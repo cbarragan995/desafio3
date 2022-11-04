@@ -21,7 +21,7 @@ pipeline {
         } 
         stage('BUILD TO ZIP') {
             steps {
-                echo "Building"
+                echo "Building ${env.BRANCH_NAME}"
                 sh 'zip -jr $ZIP $CODE'
                 sh 'ls -lrt'
             }
